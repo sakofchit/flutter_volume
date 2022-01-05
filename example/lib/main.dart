@@ -13,6 +13,7 @@ class _MyAppState extends State<MyApp> {
   bool sliding = false;
   double sliderVal = 0;
   double volume = 0;
+  double step = 1.0 / 16.0;
 
   @override
   void initState() {
@@ -43,11 +44,25 @@ class _MyAppState extends State<MyApp> {
                 FlatButton(
                     onPressed: () {
                       FlutterVolume.up();
+                      setState(() {  
+                        volume += step;
+
+                          if(volume > 1.0) {
+                            volume = 1.0;
+                          }
+                      });
                     },
                     child: Text("up")),
                 FlatButton(
                     onPressed: () {
                       FlutterVolume.down();
+                      setState(() {      
+                        volume -= step;
+                        
+                        if(volume < 0.0) {
+                          volume = 0.0;
+                        }
+                      });
                     },
                     child: Text("down")),
                 FlatButton(
